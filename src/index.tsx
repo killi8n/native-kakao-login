@@ -8,10 +8,10 @@ interface LoginResult {
   refreshTokenExpiresIn: number;
   tokenType?: string;
   success: boolean;
-  errorType: 'ClientError' | 'ApiError' | 'AuthError';
-  errorMessage: string | null;
-  errorCode: number | null;
-  errorScopes: string[] | null;
+  errorType?: 'ClientError' | 'ApiError' | 'AuthError';
+  errorMessage?: string;
+  errorCode?: number;
+  errorScopes?: string[];
 }
 
 interface GetProfileResult {
@@ -25,14 +25,27 @@ interface GetProfileResult {
     thumbnail_image?: string;
   };
   synchedAt?: Date;
+  success: boolean;
+  errorType?: 'ClientError' | 'ApiError' | 'AuthError';
+  errorMessage?: string;
+  errorCode?: number;
+  errorScopes?: string[];
 }
 
 interface LogoutResult {
   success: boolean;
+  errorType?: 'ClientError' | 'ApiError' | 'AuthError';
+  errorMessage?: string;
+  errorCode?: number;
+  errorScopes?: string[];
 }
 
 interface UnlinkResult {
   success: boolean;
+  errorType?: 'ClientError' | 'ApiError' | 'AuthError';
+  errorMessage?: string;
+  errorCode?: number;
+  errorScopes?: string[];
 }
 
 type NativeKakaoLoginType = {

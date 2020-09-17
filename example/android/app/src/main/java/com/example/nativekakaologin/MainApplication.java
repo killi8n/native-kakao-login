@@ -49,6 +49,7 @@ public class MainApplication extends Application implements ReactApplication {
     super.onCreate();
     SoLoader.init(this, /* native exopackage */ false);
     initializeFlipper(this, getReactNativeHost().getReactInstanceManager()); // Remove this line if you don't want Flipper enabled
+    Utils.initKakaoSDK(this, "{NATIVE_APP_KEY}");
   }
 
   /**

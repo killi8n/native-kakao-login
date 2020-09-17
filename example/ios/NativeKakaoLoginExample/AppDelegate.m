@@ -55,7 +55,7 @@ static void InitializeFlipper(UIApplication *application) {
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
-  [Utils initKakaoSDKWithAppKey:@"YOUR_KAKAO_APP_KEY"];
+  [Utils initKakaoSDKWithAppKey:@"{NATIVE_APP_KEY}"];
   return YES;
 }
 
