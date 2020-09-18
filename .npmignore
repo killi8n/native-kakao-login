@@ -2,3 +2,4 @@ example/
 .vscode/
 .circleci/
 node_modules/
+src/
