@@ -20,6 +20,7 @@ class NativeKakaoLoginModule(reactContext: ReactApplicationContext) : ReactConte
 
     fun parseToken(token: OAuthToken): WritableMap {
       var tokenInfos = Arguments.createMap();
+      tokenInfos.putBoolean("success", true);
       tokenInfos.putString("accessToken", token.accessToken);
       tokenInfos.putString("expiredAt", token.accessTokenExpiresAt.toString());
       tokenInfos.putString("refreshToken", token.refreshToken);
