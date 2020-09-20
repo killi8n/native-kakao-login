@@ -51,27 +51,29 @@ class NativeKakaoLogin: NSObject {
     
     @objc
     func login(_ resolve: @escaping RCTPromiseResolveBlock, rejecter reject: @escaping RCTPromiseRejectBlock) -> Void {
-        let isKakaoAppInstalled: Bool = AuthApi.isKakaoTalkLoginAvailable()
-        if isKakaoAppInstalled {
-            AuthApi.shared.loginWithKakaoTalk {(oauthToken: OAuthToken?, error: Error?) in
-                if let error = error as? SdkError {
-                    resolve(self.parseError(error: error))
-                    return
+        DispatchQueue.main.async {
+            let isKakaoAppInstalled: Bool = AuthApi.isKakaoTalkLoginAvailable()
+            if isKakaoAppInstalled {
+                AuthApi.shared.loginWithKakaoTalk {(oauthToken: OAuthToken?, error: Error?) in
+                    if let error = error as? SdkError {
+                        resolve(self.parseError(error: error))
+                        return
+                    }
+                    if let oauthToken = oauthToken {
+                        let oauthTokenInfos = self.parseOAuthToken(oauthToken: oauthToken)
+                        resolve(oauthTokenInfos)
+                    }
                 }
-                if let oauthToken = oauthToken {
-                    let oauthTokenInfos = self.parseOAuthToken(oauthToken: oauthToken)
-                    resolve(oauthTokenInfos)
-                }
-            }
-        } else {
-            AuthApi.shared.loginWithKakaoAccount {(oauthToken, error) in
-                if let error = error {
-                    resolve(self.parseError(error: error))
-                    return
-                }
-                if let oauthToken = oauthToken {
-                    let oauthTokenInfos = self.parseOAuthToken(oauthToken: oauthToken)
-                    resolve(oauthTokenInfos)
+            } else {
+                AuthApi.shared.loginWithKakaoAccount {(oauthToken, error) in
+                    if let error = error {
+                        resolve(self.parseError(error: error))
+                        return
+                    }
+                    if let oauthToken = oauthToken {
+                        let oauthTokenInfos = self.parseOAuthToken(oauthToken: oauthToken)
+                        resolve(oauthTokenInfos)
+                    }
                 }
             }
         }
