@@ -10,7 +10,7 @@ class NativeKakaoLogin: NSObject {
     
     func parseOAuthToken(oauthToken: OAuthToken) -> [String: Any] {
         var oauthTokenInfos: [String: Any] = [
-            "sucess": true,
+            "success": true,
             "accessToken": oauthToken.accessToken,
             "expiredAt": oauthToken.expiredAt,
             "expiresIn": oauthToken.expiresIn,
@@ -32,7 +32,7 @@ class NativeKakaoLogin: NSObject {
         if let error = error as? SdkError {
             if error.isClientFailed {
                 let clientError = error.getClientError()
-                let errorResult: [String: Any?] = ["sucess": false, "errorType": "ClientError", "errorMessage": clientError.message ?? nil]
+                let errorResult: [String: Any?] = ["success": false, "errorType": "ClientError", "errorMessage": clientError.message ?? nil]
                 return errorResult
             }
             if error.isApiFailed {
@@ -133,7 +133,7 @@ class NativeKakaoLogin: NSObject {
                 resolve(self.parseError(error: error))
                 return
             }
-            resolve(["sucess": true])
+            resolve(["success": true])
         }
     }
 }
