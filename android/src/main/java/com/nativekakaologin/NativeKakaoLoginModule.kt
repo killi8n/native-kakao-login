@@ -88,6 +88,7 @@ class NativeKakaoLoginModule(reactContext: ReactApplicationContext) : ReactConte
           promise.resolve(this.parseError(error))
         } else if (user != null) {
           var userInfos = Arguments.createMap();
+          userInfos.putBoolean("success", true)
           userInfos.putInt("id", user.id.toInt());
           var propertyInfos = Arguments.createMap()
           user.properties?.let { it
