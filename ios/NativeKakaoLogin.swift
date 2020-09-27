@@ -80,10 +80,10 @@ class NativeKakaoLogin: NSObject {
     }
     
     func parseUser(user: User) -> [String: Any] {
-        userInfo["success"] = true
         var userInfo: [String: Any] = [
             "id": user.id
         ]
+        userInfo["success"] = true
         if let connectedAt = user.connectedAt {
             userInfo["connectedAt"] = connectedAt
         }
