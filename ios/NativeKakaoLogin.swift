@@ -52,9 +52,9 @@ class NativeKakaoLogin: NSObject {
     @objc
     func login(_ resolve: @escaping RCTPromiseResolveBlock, rejecter reject: @escaping RCTPromiseRejectBlock) -> Void {
         DispatchQueue.main.async {
-            let isKakaoAppInstalled: Bool = AuthApi.isKakaoTalkLoginAvailable()
+            let isKakaoAppInstalled: Bool = UserApi.isKakaoTalkLoginAvailable()
             if isKakaoAppInstalled {
-                AuthApi.shared.loginWithKakaoTalk {(oauthToken: OAuthToken?, error: Error?) in
+                UserApi.shared.loginWithKakaoTalk {(oauthToken: OAuthToken?, error: Error?) in
                     if let error = error as? SdkError {
                         resolve(self.parseError(error: error))
                         return
@@ -65,7 +65,7 @@ class NativeKakaoLogin: NSObject {
                     }
                 }
             } else {
-                AuthApi.shared.loginWithKakaoAccount {(oauthToken, error) in
+                UserApi.shared.loginWithKakaoAccount {(oauthToken, error) in
                     if let error = error {
                         resolve(self.parseError(error: error))
                         return
