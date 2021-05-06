@@ -80,7 +80,7 @@ PODS:
     - KakaoSDKAuth (= 2.4.0)
     - KakaoSDKCommon (= 2.4.0)
   - libevent (2.1.12)
-  - native-kakao-login (0.1.7):
+  - native-kakao-login (0.1.8):
     - KakaoSDKAuth
     - KakaoSDKCommon
     - KakaoSDKUser
@@ -441,7 +441,7 @@ SPEC CHECKSUMS:
   KakaoSDKCommon: 0e27a4819da0e5d29eec661c12e63b990c34a6f9
   KakaoSDKUser: f68503fc60dd2a8bf0fd5ad37192db9e542af5dd
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
-  native-kakao-login: 2cf46eeff47b8040d4b18edab134b9881d2c92ea
+  native-kakao-login: c6fa4f54741a2450b249bbfcae086ba39a9dfabc
   OpenSSL-Universal: 1aa4f6a6ee7256b83db99ec1ccdaa80d10f9af9b
   RCTRequired: cec6a34b3ac8a9915c37e7e4ad3aa74726ce4035
   RCTTypeSafety: 93006131180074cffa227a1075802c89a49dd4ce
