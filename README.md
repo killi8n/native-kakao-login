@@ -30,7 +30,7 @@ add this two lines
 go to URL Schemes in xcode (target -> info -> URL Types)
 add URL Schemes like this
 
-> kakao{KAKAO_APP_KEY} // ex) kakao12345678
+> kakao{KAKAO_APP_KEY}://oauth // ex) kakao12345678://oauth
 
 and go to developer kakao site, add iOS platform with bundle ID
 
@@ -44,7 +44,7 @@ import KakaoSDKCommon
 class KakaoLoginUtil: NSObject {
   @objc
   static func initKakaoSDK() -> Void {
-    KakaoSDKCommon.initSDK(appKey: "{YOUR_KAKAO_APP_KEY}")
+    KakaoSDKCommon.initSDK(appKey: "{YOUR_KAKAO_APP_KEY}") // without kakao prefix, ex) 12345678abcde
   }
   @objc
   static func handleOpenUrl(url: URL) -> Bool {
