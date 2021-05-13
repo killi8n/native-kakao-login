@@ -106,7 +106,7 @@ import com.kakao.sdk.common.KakaoSdk;
 
 public class KakaoLoginUtil {
     public static void initKakaoSDK(Context context) {
-        KakaoSdk.init(context, "{NATIVE_APP_KEY}");
+        KakaoSdk.init(context, "{NATIVE_APP_KEY}"); // without "kakao"prefix, ex) 123456678abcde
     }
 }
 
@@ -132,7 +132,7 @@ open `AndroidManifest.xml` and add this xml codes inside application xml
         <category android:name="android.intent.category.DEFAULT" />
         <category android:name="android.intent.category.BROWSABLE" />
 
-        <!-- Redirect URI: "kakao{NATIVE_APP_KEY}://oauth“ -->
+        <!-- Redirect URI: "kakao{NATIVE_APP_KEY}“ -->
         <data android:host="oauth"
                 android:scheme="kakao{NATIVE_APP_KEY}" />
     </intent-filter>
@@ -160,7 +160,7 @@ const login = async () => {
 ```js
 import KakaoLogin from "native-kakao-login";
 
-const login = async () => {
+const getProfile = async () => {
     try {
         const result = await KakaoLogin.getProfile();
     } catch (e) {
@@ -173,7 +173,7 @@ const login = async () => {
 ```js
 import KakaoLogin from "native-kakao-login";
 
-const login = async () => {
+const logout = async () => {
     try {
         const result = await KakaoLogin.logout();
     } catch (e) {
@@ -186,9 +186,22 @@ const login = async () => {
 ```js
 import KakaoLogin from "native-kakao-login";
 
-const login = async () => {
+const unlink = async () => {
     try {
         const result = await KakaoLogin.unlink();
+    } catch (e) {
+        console.error(e)
+    }
+}
+```
+
+5. getAccessTokenInfo
+```js
+import KakaoLogin from "native-kakao-login";
+
+const getAccessTokenInfo = async () => {
+    try {
+        const result = await KakaoLogin.getAccessTokenInfo();
     } catch (e) {
         console.error(e)
     }

@@ -13,6 +13,8 @@ export default function App() {
             console.log(loginResult);
             const profile = await NativeKakaoLogin.getProfile();
             console.log(profile);
+            const accessTokenInfo = await NativeKakaoLogin.getAccessTokenInfo();
+            console.log(accessTokenInfo);
           } catch (e) {
             console.error(e);
           }

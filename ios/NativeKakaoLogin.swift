@@ -102,6 +102,14 @@ class NativeKakaoLogin: NSObject {
         return userInfo
     }
     
+    func parseAccessTokenInfo(accessTokenInfo: AccessTokenInfo) -> [String: Any] {
+        var accessTokenInfoResponse: [String: Any] = [:]
+        accessTokenInfoResponse["id"] = accessTokenInfo.id
+        accessTokenInfoResponse["expiresIn"] = accessTokenInfo.expiresIn
+        
+        return accessTokenInfoResponse
+    }
+    
     @objc
     func getProfile(_ resolve: @escaping RCTPromiseResolveBlock, rejecter reject: @escaping RCTPromiseRejectBlock) -> Void {
         UserApi.shared.me { (user: User?, error: Error?) in
@@ -112,6 +120,20 @@ class NativeKakaoLogin: NSObject {
             if let user = user {
                 let userInfo = self.parseUser(user: user)
                 resolve(userInfo)
+            }
+        }
+    }
+    
+    @objc
+    func getAccessTokenInfo(_ resolve: @escaping RCTPromiseResolveBlock, rejecter reject: @escaping RCTPromiseRejectBlock) -> Void {
+        UserApi.shared.accessTokenInfo { (accessTokenInfo: AccessTokenInfo?, error: Error?) in
+            if let error = error {
+                resolve(self.parseError(error: error))
+                return
+            }
+            if let accessTokenInfo = accessTokenInfo {
+                let accessTokenInfoResponse = self.parseAccessTokenInfo(accessTokenInfo: accessTokenInfo)
+                resolve(accessTokenInfoResponse)
             }
         }
     }

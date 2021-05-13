@@ -109,6 +109,22 @@ class NativeKakaoLoginModule(reactContext: ReactApplicationContext) : ReactConte
     }
 
     @ReactMethod
+    fun getAccessTokenInfo(promise: Promise) {
+      UserApiClient.instance.accessTokenInfo{ tokenInfo, error ->
+        if (error != null) {
+          promise.resolve(this.parseError(error))
+        } else if (tokenInfo != null) {
+          tokenInfo.let { it ->
+            val accessTokenInfoResponse = Arguments.createMap()
+            accessTokenInfoResponse.putDouble("expiresIn", it.expiresIn.toDouble())
+            accessTokenInfoResponse.putDouble("id", it.id.toDouble())
+            promise.resolve(accessTokenInfoResponse)
+          }
+        }
+      }
+    }
+
+    @ReactMethod
     fun logout(promise: Promise) {
       UserApiClient.instance.logout { error ->
         if (error != null) {

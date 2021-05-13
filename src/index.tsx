@@ -32,6 +32,11 @@ interface GetProfileResult {
   errorScopes?: string[];
 }
 
+interface GetAccessTokenInfoResult {
+  id: number;
+  expiresIn: number;
+}
+
 interface LogoutResult {
   success: boolean;
   errorType?: 'ClientError' | 'ApiError' | 'AuthError';
@@ -51,6 +56,7 @@ interface UnlinkResult {
 type NativeKakaoLoginType = {
   login: () => Promise<LoginResult>;
   getProfile: () => Promise<GetProfileResult>;
+  getAccessTokenInfo: () => Promise<GetAccessTokenInfoResult>;
   logout: () => Promise<LogoutResult>;
   unlink: () => Promise<UnlinkResult>;
 };
