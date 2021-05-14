@@ -1,6 +1,6 @@
 {
   "name": "native-kakao-login",
-  "version": "0.1.9",
+  "version": "0.2.0",
   "description": "kakao login modules for react native",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",

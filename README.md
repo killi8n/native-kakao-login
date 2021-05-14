@@ -92,7 +92,7 @@ open `build.gradle(app)`
 
 ```gradle
 // add this line
-implementation "com.kakao.sdk:v2-user:2.0.2" // 카카오 로그인, 사용자 관리
+implementation "com.kakao.sdk:v2-user:2.5.0" // 카카오 로그인
 ```
 
 make `KakaoLoginUtil.java`

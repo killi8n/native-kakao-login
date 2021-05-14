@@ -3,7 +3,7 @@ package com.killi8nreactnativekakaologin
 import android.content.ContentValues.TAG
 import android.util.Log
 import com.facebook.react.bridge.*
-import com.kakao.sdk.auth.LoginClient
+import com.kakao.sdk.auth.AuthApiClient
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.ApiError
 import com.kakao.sdk.common.model.AuthError
@@ -59,10 +59,10 @@ class NativeKakaoLoginModule(reactContext: ReactApplicationContext) : ReactConte
 
     @ReactMethod
     fun login(promise: Promise) {
-      var isKakaoAppInstalled: Boolean = LoginClient.instance.isKakaoTalkLoginAvailable(this.reactApplicationContext);
+      var isKakaoAppInstalled: Boolean = UserApiClient.instance.isKakaoTalkLoginAvailable(this.reactApplicationContext);
       if (isKakaoAppInstalled) {
         // 카카오톡으로 로그인
-        LoginClient.instance.loginWithKakaoTalk(this.reactApplicationContext) { token, error ->
+        UserApiClient.instance.loginWithKakaoTalk(this.reactApplicationContext) { token, error ->
           if (error != null) {
             promise.resolve(this.parseError(error));
           } else if (token != null) {
@@ -71,7 +71,7 @@ class NativeKakaoLoginModule(reactContext: ReactApplicationContext) : ReactConte
         }
       } else {
         // 카카오계정으로 로그인
-        LoginClient.instance.loginWithKakaoAccount(this.reactApplicationContext) { token, error ->
+        UserApiClient.instance.loginWithKakaoAccount(this.reactApplicationContext) { token, error ->
           if (error != null) {
             promise.resolve(this.parseError(error));
           } else if (token != null) {
@@ -147,6 +147,37 @@ class NativeKakaoLoginModule(reactContext: ReactApplicationContext) : ReactConte
           result.putBoolean("success", true);
           promise.resolve(result);
         }
+      }
+    }
+
+    @ReactMethod
+    fun checkTokenValidated(promise: Promise) {
+      val tokenValidatedResult = Arguments.createMap()
+      if (AuthApiClient.instance.hasToken()) {
+        UserApiClient.instance.accessTokenInfo { _, error ->
+          if (error != null) {
+            if (error is KakaoSdkError && error.isInvalidTokenError() == true) {
+              //로그인 필요
+              tokenValidatedResult.putBoolean("validated", false)
+              promise.resolve(tokenValidatedResult)
+            }
+            else {
+              //기타 에러
+              tokenValidatedResult.putBoolean("validated", false)
+              promise.resolve(tokenValidatedResult)
+            }
+          }
+          else {
+            //토큰 유효성 체크 성공(필요 시 토큰 갱신됨)
+            tokenValidatedResult.putBoolean("validated", true)
+            promise.resolve(tokenValidatedResult)
+          }
+        }
+      }
+      else {
+        //로그인 필요
+        tokenValidatedResult.putBoolean("validated", false)
+        promise.resolve(tokenValidatedResult)
       }
     }
 }

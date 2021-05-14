@@ -7,6 +7,7 @@ RCT_EXTERN_METHOD(getProfile: (RCTPromiseResolveBlock)resolve rejecter: (RCTProm
 RCT_EXTERN_METHOD(getAccessTokenInfo: (RCTPromiseResolveBlock)resolve rejecter: (RCTPromiseRejectBlock)reject)
 RCT_EXTERN_METHOD(logout: (RCTPromiseResolveBlock)resolve rejecter: (RCTPromiseRejectBlock)reject)
 RCT_EXTERN_METHOD(unlink: (RCTPromiseResolveBlock)resolve rejecter: (RCTPromiseRejectBlock)reject)
+RCT_EXTERN_METHOD(checkTokenValidated: (RCTPromiseResolveBlock)resolve rejecter: (RCTPromiseRejectBlock)reject)
 
 + (BOOL)requiresMainQueueSetup {
     return YES;

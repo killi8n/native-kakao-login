@@ -42,6 +42,17 @@ export default function App() {
           }
         }}
       />
+      <Button
+        title="Check Token Validation"
+        onPress={async () => {
+          try {
+            const tokenValidatedResult = await NativeKakaoLogin.checkTokenValidated();
+            console.log(tokenValidatedResult);
+          } catch (e) {
+            console.error(e);
+          }
+        }}
+      />
     </View>
   );
 }

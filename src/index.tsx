@@ -53,12 +53,17 @@ interface UnlinkResult {
   errorScopes?: string[];
 }
 
+interface CheckTokenValidatedResult {
+  validated: boolean;
+}
+
 type NativeKakaoLoginType = {
   login: () => Promise<LoginResult>;
   getProfile: () => Promise<GetProfileResult>;
   getAccessTokenInfo: () => Promise<GetAccessTokenInfoResult>;
   logout: () => Promise<LogoutResult>;
   unlink: () => Promise<UnlinkResult>;
+  checkTokenValidated: () => Promise<CheckTokenValidatedResult>;
 };
 
 const { NativeKakaoLogin } = NativeModules;

@@ -139,6 +139,35 @@ class NativeKakaoLogin: NSObject {
     }
     
     @objc
+    func checkTokenValidated(_ resolve: @escaping RCTPromiseResolveBlock, rejecter reject: @escaping RCTPromiseRejectBlock) -> Void {
+        var tokenValidatedResult: [String: Any] = [:]
+        if (AuthApi.hasToken()) {
+            UserApi.shared.accessTokenInfo { (_, error) in
+                if let error = error {
+                    if let sdkError = error as? SdkError, sdkError.isInvalidTokenError() == true  {
+                        //로그인 필요
+                        tokenValidatedResult["validated"] = false
+                        resolve(tokenValidatedResult)
+                    }
+                    else {
+                        //기타 에러
+                        tokenValidatedResult["validated"] = false
+                        resolve(tokenValidatedResult)
+                    }
+                } else {
+                    //토큰 유효성 체크 성공(필요 시 토큰 갱신됨)
+                    tokenValidatedResult["validated"] = true
+                    resolve(tokenValidatedResult)
+                }
+            }
+        } else {
+            //로그인 필요
+            tokenValidatedResult["validated"] = false
+            resolve(tokenValidatedResult)
+        }
+    }
+    
+    @objc
     func logout(_ resolve: @escaping RCTPromiseResolveBlock, rejecter reject: @escaping RCTPromiseRejectBlock) -> Void {
         UserApi.shared.logout { (error: Error?) in
             if let error = error {
